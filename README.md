@@ -114,5 +114,4 @@ Feel free to submit issues or pull requests.
 📬 Contact
 MatriDev Technologies
 Developer: Shivansh Prasad
-Email: youremail@example.com
 Product: SortED
