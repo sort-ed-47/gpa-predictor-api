@@ -1,14 +1,16 @@
-
 import joblib
 import numpy as np
 from fastapi import FastAPI
 from pydantic import BaseModel
-import shap
 
 model = joblib.load("gpa_predictor_model.pkl")
 scaler = joblib.load("gpa_predictor_scaler.pkl")
 
-app = FastAPI(title="SortED GPA Prediction API with SHAP")
+app = FastAPI(
+    title="SortED GPA Prediction API",
+    docs_url="/docs",
+    redoc_url="/redoc"
+)
 
 class GPAInput(BaseModel):
     attendance_score: float
@@ -32,6 +34,10 @@ def predict_gpa(data: GPAInput):
 
 @app.post("/explain")
 def explain_gpa(data: GPAInput):
+
+    # Lazy import SHAP (FIXES Render issue)
+    import shap
+
     x = np.array([[
         data.attendance_score,
         data.assignment_score,
